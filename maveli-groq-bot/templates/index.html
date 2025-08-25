@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>മാവേലി ചാറ്റ്‌ബോട്ട്</title>
+</head>
+<body>
+  <h2>🧔🏽‍♂️ മാവേലി ചാറ്റ്‌ബോട്ട്</h2>
+  <div id="chatbox" style="white-space: pre-line; border: 1px solid #000; padding: 10px;"></div>
+  <input id="userInput" placeholder="താങ്കളുടെ സന്ദേശം ടൈപ്പ് ചെയ്യൂ..." />
+  <button onclick="sendMessage()">അയയ്ക്കൂ</button>
+
+  <script>
+    async function sendMessage() {
+      const input = document.getElementById("userInput").value;
+      const res = await fetch("/chat", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ message: input })
+      });
+      const data = await res.json();
+      document.getElementById("chatbox").innerHTML += `\n👤: ${input}\n🤴: ${data.reply}\n\n`;
+      document.getElementById("userInput").value = "";
+    }
+  </script>
+</body>
+</html>
